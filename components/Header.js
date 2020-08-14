@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import SearchIcon from '@material-ui/icons/Search';
-import { makeStyles, fade } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Button, InputBase } from '@material-ui/core';
+import { makeStyles, fade } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Header() {
+const Header = () => {
   const classes = useStyles();
 
   return (
