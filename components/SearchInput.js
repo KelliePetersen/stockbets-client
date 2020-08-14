@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import SearchIcon from '@material-ui/icons/Search';
 import { InputBase } from '@material-ui/core';
 import { makeStyles, fade } from '@material-ui/core/styles';
@@ -47,7 +49,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchInput = () => {
+  const [value, setValue] = useState('');
+  const router = useRouter();
   const classes = useStyles();
+
+  const handleKeyDown = (event) => {
+    if (value && event.key === 'Enter') {
+      console.log(value);
+      router.push(`/stock/${value}`);
+    }
+  }
 
   return (
     <div className={classes.search}>
@@ -61,6 +72,9 @@ const SearchInput = () => {
           input: classes.inputInput,
         }}
         inputProps={{ 'aria-label': 'search' }}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
     </div>
   );
