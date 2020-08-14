@@ -1,4 +1,6 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Layout from '../components/Layout';
 
 const Login = () => {
   const router = useRouter();
@@ -10,9 +12,15 @@ const Login = () => {
 
   return (
     <>
-      <input placeholder="Username" />
-      <input placeholder="Password" type="password" />
-      <button onClick={onLogin} type="button">Sign In</button>
+      <Head>
+        <title>Login</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Layout>
+        <input placeholder="Username" />
+        <input placeholder="Password" type="password" />
+        <button onClick={onLogin} type="button">Sign In</button>
+      </Layout>
     </>
   )
 }
