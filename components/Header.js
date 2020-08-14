@@ -1,8 +1,11 @@
+import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  
+  toolbar: {
+    justifyContent: "space-between"
+  }
 }));
 
 export default function Header() {
@@ -11,9 +14,9 @@ export default function Header() {
   return (
     <div>
       <AppBar position="fixed">
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <Typography variant="h6">
-            News
+            <Link href="/"><a>Stockbets</a></Link>
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
