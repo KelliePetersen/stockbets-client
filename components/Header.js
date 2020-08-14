@@ -31,8 +31,12 @@ const Header = () => {
             <SearchInput />
           </div>
           <div>
-            <Button variant="outlined" color="inherit">Login</Button>
-            <Button variant="contained" className={classes.signup} disableElevation>Sign Up</Button>
+            <Link href="/login">
+              <Button component="a" variant="outlined" color="inherit">Login</Button>
+            </Link>
+            <Link href="/signup">
+              <Button component="a" variant="contained" className={classes.signup} disableElevation>Sign Up</Button>
+            </Link>
           </div>
         </Toolbar>
       </AppBar>
