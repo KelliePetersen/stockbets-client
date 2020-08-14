@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     justifyContent: 'space-between'
   },
+  signup: {
+    backgroundColor: 'white',
+    color: theme.palette.primary.main,
+    marginLeft: theme.spacing(1)
+  },
   search: {
     display: 'inline-block',
     position: 'relative',
@@ -77,8 +82,8 @@ const Header = () => {
           </div>
           </div>
           <div>
-            <Button color="inherit">Login</Button>
-            <Button color="inherit">Sign Up</Button>
+            <Button variant="outlined" color="inherit">Login</Button>
+            <Button variant="contained" className={classes.signup} disableElevation>Sign Up</Button>
           </div>
         </Toolbar>
       </AppBar>
