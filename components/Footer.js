@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 'bold',
     },
     '& a:hover': {
-      color: 'blue'
+      color: theme.palette.primary.main
     }
   }
 }));
