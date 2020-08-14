@@ -52,7 +52,9 @@ const Home = () => {
         <h1 className={classes.heading}>
           A place for professionals to share insights and predictions on the stock market.
         </h1>
-        <Button variant="contained" color="primary" size="large" className={classes.signup}>Sign Up</Button>
+        <Link href="/signup">
+          <Button variant="contained" color="primary" size="large" className={classes.signup}>Sign Up</Button>
+        </Link>
       </main>
     </Layout>
   )
