@@ -1,22 +1,26 @@
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 
-const StyledFooter = styled.footer`
-  width: 100%;
-  padding: 20px 0;
-  border-top: 1px solid #eaeaea;
-  align-items: center;
-  text-align: center;
-  & a {
-    font-weight: bold;
+const useStyles = makeStyles((theme) => ({
+  footer: {
+    width: '100%',
+    padding: '20px 0',
+    borderTop: '1px solid #eaeaea',
+    alignItems: 'center',
+    textAlign: 'center',
+    '& a': {
+      fontWeight: 'bold',
+    },
+    '& a:hover': {
+      color: 'blue'
+    }
   }
-  & a:hover {
-    color: blue;
-  }
-`;
+}));
 
 const Footer = () => {
+  const classes = useStyles();
+
   return (
-    <StyledFooter>
+    <footer className={classes.footer}>
       <p>&copy; Stockbets 2020. All rights reserved.</p>
       <p>
         Created by&nbsp;
@@ -28,7 +32,7 @@ const Footer = () => {
           Parchot
         </a>
       </p>
-    </StyledFooter>
+    </footer>
   )
 }
 
