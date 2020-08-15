@@ -1,4 +1,5 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import Link from 'next/link';
 import Layout from '../components/Layout';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   signup: {
     width: '100%',
-    height: '50px',
+    padding: '15px 0',
     display: 'inline-block',
     position: 'absolute',
     bottom: '20px',
@@ -53,7 +54,7 @@ const Home = () => {
           A place for professionals to share insights and predictions on the stock market.
         </h1>
         <Link href="/signup">
-          <Button variant="contained" color="primary" size="large" className={classes.signup}>Sign Up</Button>
+          <Button component="a" variant="contained" color="primary" size="large" className={classes.signup}>Sign Up</Button>
         </Link>
       </main>
     </Layout>
