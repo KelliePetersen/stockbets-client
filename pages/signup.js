@@ -2,27 +2,27 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 
-const Login = () => {
+const Signup = () => {
   const router = useRouter();
 
-  const onLogin = (e) => {
+  const onSignup = (e) => {
     e.preventDefault();
-    router.push('/dashboard');
+    router.push('/login');
   }
 
   return (
     <>
       <Head>
-        <title>Login | Stockbets</title>
+        <title>Signup | Stockbets</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
         <input placeholder="Username" />
         <input placeholder="Password" type="password" />
-        <button onClick={onLogin} type="button">Sign In</button>
+        <button onClick={onSignup} type="button">Sign In</button>
       </Layout>
     </>
   )
 }
 
-export default Login;
+export default Signup;
