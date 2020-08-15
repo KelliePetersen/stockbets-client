@@ -55,7 +55,7 @@ const SearchInput = () => {
 
   const handleKeyDown = (event) => {
     if (value && event.key === 'Enter') {
-      router.push('stock/[id]', `/stock/${value}`);
+      router.push('/stock/[id]', `/stock/${value}`);
     }
   }
 
