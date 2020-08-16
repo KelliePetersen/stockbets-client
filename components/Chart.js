@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 20px 20px 0'
   },
   svg: {
-    background: '#eee',
+    background: 'none',
     overflow: 'visible',
     width: '100%',
     height: '100%'
@@ -45,7 +45,8 @@ const Chart = ({ data }) => {
   const prices = [];
   const times = [];
 
-  data.map(item => {
+  data.map((item, index) => {
+    if (index % 5 != 0) return;
     prices.push(item.price);
     times.push(item.time);
   });
@@ -55,11 +56,11 @@ const Chart = ({ data }) => {
 
     if (!dimensions) return;
 
-    const xScale = scaleLinear().domain([0, data.length - 1]).range([0, dimensions.width]);
+    const xScale = scaleLinear().domain([0, prices.length - 1]).range([0, dimensions.width]);
     const yScale = scaleLinear().domain([Math.min(...prices) * 0.99, Math.max(...prices) * 1.01]).range([dimensions.height, 0]);
 
     // TODO - Adjust ticks and format to time
-    const xAxis = axisBottom(xScale).ticks(data.length / 50).tickFormat(index => index);
+    const xAxis = axisBottom(xScale).ticks(prices.length / 10).tickFormat(index => index);
     svg.select('.x-axis').style('transform', 'translateY(100%)').call(xAxis);
 
     const yAxis = axisRight(yScale);
