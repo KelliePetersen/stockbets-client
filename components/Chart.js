@@ -42,6 +42,13 @@ const Chart = ({ data }) => {
   const wrapperRef = useRef();
   const svgRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
+  const prices = [];
+  const times = [];
+
+  data.map(item => {
+    prices.push(item.price);
+    times.push(item.time);
+  });
 
   useEffect(() => {
     const svg = select(svgRef.current);
@@ -49,7 +56,7 @@ const Chart = ({ data }) => {
     if (!dimensions) return;
 
     const xScale = scaleLinear().domain([0, data.length - 1]).range([0, dimensions.width]);
-    const yScale = scaleLinear().domain([Math.min(...data) * 0.99, Math.max(...data) * 1.01]).range([dimensions.height, 0]);
+    const yScale = scaleLinear().domain([Math.min(...prices) * 0.99, Math.max(...prices) * 1.01]).range([dimensions.height, 0]);
 
     // TODO - Adjust ticks and format to time
     const xAxis = axisBottom(xScale).ticks(data.length / 50).tickFormat(index => index);
@@ -64,7 +71,7 @@ const Chart = ({ data }) => {
 
     svg
       .selectAll('.line')
-      .data([data])
+      .data([prices])
       .join('path')
       .attr('class', 'line')
       .attr('d', myLine)

@@ -12,14 +12,14 @@ const StockPage = ({stockData, priceData}) => {
 
   const [data, setData] = useState([25, 30, 45, 60, 15, 30, 75, 100, 50, 25]);
 
-  priceData.map((stock, index) => {
-    if (stock.average && index % 5 == 0) {
-      items.push(stock.average.toFixed(2));
-    }
+  let cache = stockData.open;
+  priceData.map((stock) => {
+    items.push({"time": stock.label, "price": stock.average ? stock.average.toFixed(2) : cache});
+    cache = stock.average || cache;
   });
 
   return (
-    <div onClick={() => console.log(priceData[10].average)}>
+    <div>
       <Head>
         <title>{stockData.symbol} | {stockData.companyName}</title>
         <link rel="icon" href="/favicon.ico" />
