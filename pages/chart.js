@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { select, line, axisBottom, scaleLinear } from 'd3';
+import { select, line, axisBottom, axisRight, scaleLinear } from 'd3';
 
 const Chart = () => {
   const [data, setData] = useState([25, 30, 45, 60, 15, 30, 75, 100]);
@@ -12,6 +12,9 @@ const Chart = () => {
 
     const xAxis = axisBottom(xScale);
     svg.select('.x-axis').style('transform', 'translateY(150px)').call(xAxis);
+
+    const yAxis = axisRight(yScale);
+    svg.select('.y-axis').style('transform', 'translateX(300px)').call(yAxis);
 
     const myLine = line()
       .x((value, index) => xScale(index))
@@ -30,8 +33,9 @@ const Chart = () => {
 
   return (
     <>
-      <svg ref={svgRef} style={{background: '#eee', overflow: 'visible'}}>
+      <svg ref={svgRef} style={{background: '#eee', overflow: 'visible', margin: '20px'}}>
         <g className="x-axis" />
+        <g className="y-axis" />
       </svg>
     </>
   )
