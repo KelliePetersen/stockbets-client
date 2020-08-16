@@ -37,8 +37,7 @@ const useResizeObserver = (ref) => {
   return dimensions;
 }
 
-const Chart = () => {
-  const [data, setData] = useState([25, 30, 45, 60, 15, 30, 75, 100]);
+const Chart = ({ data }) => {
   const classes = useStyles();
   const wrapperRef = useRef();
   const svgRef = useRef();

@@ -1,12 +1,16 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Layout from "../../../components/Layout";
+import Chart from "../../../components/Chart";
 
 const VariablePage = ({stockData, priceData}) => {
   const router = useRouter();
   const {id} = router.query;
   const items = [];
+
+  const [data, setData] = useState([25, 30, 45, 60, 15, 30, 75, 100, 50, 25]);
 
   priceData.map(stock => {
     items.push(<li key={stock.label}>{stock.label}: {stock.average}</li>);
@@ -23,6 +27,7 @@ const VariablePage = ({stockData, priceData}) => {
           <h1>{stockData.symbol}: ${stockData.latestPrice}</h1> 
           <p>{stockData.companyName}</p>
           <p>{priceData.average}</p>
+          <Chart data={data} />
           <ul>
             {items}
           </ul>
