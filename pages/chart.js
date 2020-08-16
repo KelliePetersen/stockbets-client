@@ -21,14 +21,14 @@ const Chart = () => {
 
   useEffect(() => {
     const svg = select(svgRef.current);
-    const xScale = scaleLinear().domain([0, data.length - 1]).range([0, 500]);
-    const yScale = scaleLinear().domain([0, 100]).range([150, 0]);
+    const xScale = scaleLinear().domain([0, data.length - 1]).range([0, 800]);
+    const yScale = scaleLinear().domain([0, 100]).range([400, 0]);
 
     const xAxis = axisBottom(xScale).ticks(data.length).tickFormat(index => index + 1);
-    svg.select('.x-axis').style('transform', 'translateY(150px)').call(xAxis);
+    svg.select('.x-axis').style('transform', 'translateY(100%)').call(xAxis);
 
     const yAxis = axisRight(yScale);
-    svg.select('.y-axis').style('transform', 'translateX(300px)').call(yAxis);
+    svg.select('.y-axis').style('transform', 'translateX(100%)').call(yAxis);
 
     const myLine = line()
       .x((value, index) => xScale(index))
