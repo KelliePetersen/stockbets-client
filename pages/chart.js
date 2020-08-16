@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { select, line, axisBottom, axisRight, scaleLinear } from 'd3';
 import { makeStyles } from '@material-ui/core/styles';
+import ResizeObserver from 'resize-observer-polyfill';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
