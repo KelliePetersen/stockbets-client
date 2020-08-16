@@ -49,9 +49,10 @@ const Chart = ({ data }) => {
     if (!dimensions) return;
 
     const xScale = scaleLinear().domain([0, data.length - 1]).range([0, dimensions.width]);
-    const yScale = scaleLinear().domain([0, 100]).range([dimensions.height, 0]);
+    const yScale = scaleLinear().domain([Math.min(...data) * 0.99, Math.max(...data) * 1.01]).range([dimensions.height, 0]);
 
-    const xAxis = axisBottom(xScale).ticks(data.length).tickFormat(index => index + 1);
+    // TODO - Adjust ticks and format to time
+    const xAxis = axisBottom(xScale).ticks(data.length / 50).tickFormat(index => index);
     svg.select('.x-axis').style('transform', 'translateY(100%)').call(xAxis);
 
     const yAxis = axisRight(yScale);

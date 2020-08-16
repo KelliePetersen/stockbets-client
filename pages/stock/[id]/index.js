@@ -5,15 +5,17 @@ import { useRouter } from 'next/router';
 import Layout from "../../../components/Layout";
 import Chart from "../../../components/Chart";
 
-const VariablePage = ({stockData, priceData}) => {
+const StockPage = ({stockData, priceData}) => {
   const router = useRouter();
   const {id} = router.query;
   const items = [];
 
   const [data, setData] = useState([25, 30, 45, 60, 15, 30, 75, 100, 50, 25]);
 
-  priceData.map(stock => {
-    items.push(<li key={stock.label}>{stock.label}: {stock.average}</li>);
+  priceData.map((stock, index) => {
+    if (stock.average && index % 5 == 0) {
+      items.push(stock.average.toFixed(2));
+    }
   });
 
   return (
@@ -27,10 +29,7 @@ const VariablePage = ({stockData, priceData}) => {
           <h1>{stockData.symbol}: ${stockData.latestPrice}</h1> 
           <p>{stockData.companyName}</p>
           <p>{priceData.average}</p>
-          <Chart data={data} />
-          <ul>
-            {items}
-          </ul>
+          <Chart data={items} />
           <Link href="/">
             <a>Go back home</a>
           </Link>
@@ -40,7 +39,7 @@ const VariablePage = ({stockData, priceData}) => {
   )
 }
 
-VariablePage.getInitialProps = async ({query}) => {
+StockPage.getInitialProps = async ({query}) => {
   const [stockData, priceData] = await Promise.all([
     fetch(`https://sandbox.iexapis.com/stable/stock/${query.id}/quote?token=Tpk_d6cb491dc2a54a79a74012c3d4564673`).then(r => r.json()),
     fetch(`https://sandbox.iexapis.com/stable/stock/${query.id}/intraday-prices?token=Tpk_d6cb491dc2a54a79a74012c3d4564673`).then(r => r.json())
@@ -48,4 +47,4 @@ VariablePage.getInitialProps = async ({query}) => {
   return { stockData, priceData };
 }
 
-export default VariablePage;
+export default StockPage;
