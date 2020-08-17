@@ -1,25 +1,18 @@
 import faker from 'faker';
+import { Avatar, Grid } from "@material-ui/core";
 
 const Comment = (props) => {
   return (
-    <div className="comment">
-      <a href="/" className="avatar">
-        <img alt="avatar" src={faker.image.avatar()} />
-      </a>
-      <div className="content">
-        <a href="/" className="author">
-          {props.author}
-        </a>
-        <div className="metadata">
-          <span className="date">
-            {props.timeAgo}
-          </span>
-        </div>
-        <div className="text">
-          {faker.lorem.sentence()}
-        </div>
-      </div>
-    </div>
+    <Grid container wrap="nowrap" spacing={2}>
+      <Grid item>
+        <Avatar alt={`avatar of ${props.author}`} src={faker.image.avatar()} />
+      </Grid>
+      <Grid item xs zeroMinWidth>
+        <h4 style={{ margin: 0, fontSize: '1rem'}}>{props.author}</h4>
+        <p style={{ margin: '10px 0'}} >{faker.lorem.paragraph()}</p>
+        <p style={{ color: "gray", margin: 0 }}>{props.timeAgo}</p>
+      </Grid>
+    </Grid>
   )
 }
 

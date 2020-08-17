@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from "../../../components/Layout";
 import Chart from "../../../components/Chart";
+import Comment from "../../../components/Comment";
 
 const useStyles = makeStyles((theme) => ({
   chart: {
@@ -46,6 +47,13 @@ const StockPage = ({stockData, priceData}) => {
           <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice}</h1> 
           <div className={classes.chart}>
             <Chart data={items} />
+          </div>
+          <div>
+            <Comment author="Jane" timeAgo="Today at 7:00pm"/>
+            <Comment author="David" timeAgo="Today at 3:00pm"/>
+            <Comment author="Bob" timeAgo="Today at 2:00pm"/>
+            <Comment author="Sarah" timeAgo="Today at 1:00pm"/>
+            <Comment author="Lynda" timeAgo="Today at 12:00pm"/>
           </div>
         </main>
       </Layout>
