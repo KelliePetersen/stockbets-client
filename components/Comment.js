@@ -5,7 +5,7 @@ const Comment = (props) => {
   return (
     <Grid container wrap="nowrap" spacing={2}>
       <Grid item>
-        <Avatar alt={`avatar of ${props.author}`} src={faker.image.avatar()} />
+        <Avatar alt={`avatar of ${props.author}`} src={faker.image.avatar()} style={{height: '50px', width: '50px'}} />
       </Grid>
       <Grid item xs zeroMinWidth>
         <h4 style={{ margin: 0, fontSize: '1rem'}}>{props.author}</h4>
