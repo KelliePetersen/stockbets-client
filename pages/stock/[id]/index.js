@@ -5,12 +5,14 @@ import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from "../../../components/Layout";
 import Chart from "../../../components/Chart";
-import Comment from "../../../components/Comment";
+import CommentContainer from "../../../components/CommentContainer";
 
 const useStyles = makeStyles((theme) => ({
-  chart: {
+  wrapper: {
     width: '90vw',
     maxWidth: '800px',
+  },
+  chart: {
     height: '90vw',
     maxHeight: '400px',
     margin: '20px 0'
@@ -22,12 +24,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StockPage = ({stockData, priceData}) => {
-  const router = useRouter();
-  const {id} = router.query;
   const classes = useStyles();
   const items = [];
-
-  const [data, setData] = useState([25, 30, 45, 60, 15, 30, 75, 100, 50, 25]);
+  const [data, setData] = useState([]);
 
   let cache = stockData.open;
   priceData.map((stock) => {
@@ -43,17 +42,14 @@ const StockPage = ({stockData, priceData}) => {
       </Head>
       <Layout>
         <main style={{padding: '100px 0'}}>
-          <p>{stockData.companyName}</p>
-          <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice}</h1> 
-          <div className={classes.chart}>
-            <Chart data={items} />
-          </div>
-          <div>
-            <Comment author="Jane" timeAgo="Today at 7:00pm"/>
-            <Comment author="David" timeAgo="Today at 3:00pm"/>
-            <Comment author="Bob" timeAgo="Today at 2:00pm"/>
-            <Comment author="Sarah" timeAgo="Today at 1:00pm"/>
-            <Comment author="Lynda" timeAgo="Today at 12:00pm"/>
+          <div className={classes.wrapper}>
+            <p>{stockData.companyName}</p>
+            <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice}</h1> 
+            <div className={classes.chart}>
+              <Chart data={items} />
+            </div>
+            {/* TODO Fetch comment data linked to stock in database */}
+            <CommentContainer />
           </div>
         </main>
       </Layout>
