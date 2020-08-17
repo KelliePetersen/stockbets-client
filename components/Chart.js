@@ -5,6 +5,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
+    position: 'relative',
     width: '100%',
     height: '100%',
     padding: '0 20px 20px 0'
@@ -62,7 +63,7 @@ const Chart = ({ data }) => {
 
   useEffect(() => {
     const svg = select(svgRef.current);
-    const div = select(tooltipRef.current);
+    const tooltip = select(tooltipRef.current);
 
     if (!dimensions) return;
 
@@ -89,7 +90,7 @@ const Chart = ({ data }) => {
       .attr('fill', 'none')
       .attr('stroke', 'blue');
 
-    div
+    tooltip
       .style("opacity", 0);
 
   }, [data, dimensions]);
