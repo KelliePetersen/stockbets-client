@@ -5,11 +5,8 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    width: '90vw',
-    maxWidth: '800px',
-    height: '90vw',
-    maxHeight: '400px',
-    margin: '20px auto 0',
+    width: '100%',
+    height: '100%',
     padding: '0 20px 20px 0'
   },
   svg: {
@@ -17,6 +14,17 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'visible',
     width: '100%',
     height: '100%'
+  },
+  tooltip: {
+    position: 'absolute',
+    textAlign: 'center',
+    width: '60px',
+    height: '28px',
+    padding: '2px',
+    font: '12px sans-serif',
+    background: 'lightsteelblue',
+    border: '0px',
+    borderRadius: '8px'
   }
 }));
 
@@ -41,6 +49,7 @@ const Chart = ({ data }) => {
   const classes = useStyles();
   const wrapperRef = useRef();
   const svgRef = useRef();
+  const tooltipRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
   const prices = [];
   const times = [];
@@ -53,6 +62,7 @@ const Chart = ({ data }) => {
 
   useEffect(() => {
     const svg = select(svgRef.current);
+    const div = select(tooltipRef.current);
 
     if (!dimensions) return;
 
@@ -79,6 +89,9 @@ const Chart = ({ data }) => {
       .attr('fill', 'none')
       .attr('stroke', 'blue');
 
+    div
+      .style("opacity", 0);
+
   }, [data, dimensions]);
 
   return (
@@ -87,6 +100,7 @@ const Chart = ({ data }) => {
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
+      <div ref={tooltipRef} className={classes.tooltip} />
     </div>
   )
 }

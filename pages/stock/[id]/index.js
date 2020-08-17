@@ -2,12 +2,28 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { makeStyles } from '@material-ui/core/styles';
 import Layout from "../../../components/Layout";
 import Chart from "../../../components/Chart";
+
+const useStyles = makeStyles((theme) => ({
+  chart: {
+    width: '90vw',
+    maxWidth: '800px',
+    height: '90vw',
+    maxHeight: '400px',
+    margin: '20px 0'
+  },
+  heading: {
+    wordSpacing: '5px',
+    marginTop: '10px'
+  }
+}));
 
 const StockPage = ({stockData, priceData}) => {
   const router = useRouter();
   const {id} = router.query;
+  const classes = useStyles();
   const items = [];
 
   const [data, setData] = useState([25, 30, 45, 60, 15, 30, 75, 100, 50, 25]);
@@ -26,13 +42,11 @@ const StockPage = ({stockData, priceData}) => {
       </Head>
       <Layout>
         <main style={{padding: '100px 0'}}>
-          <h1>{stockData.symbol}: ${stockData.latestPrice}</h1> 
           <p>{stockData.companyName}</p>
-          <p>{priceData.average}</p>
-          <Chart data={items} />
-          <Link href="/">
-            <a>Go back home</a>
-          </Link>
+          <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice}</h1> 
+          <div className={classes.chart}>
+            <Chart data={items} />
+          </div>
         </main>
       </Layout>
     </div>
