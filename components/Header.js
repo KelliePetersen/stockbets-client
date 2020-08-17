@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import SearchInput from './SearchInput';
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Typography, Button, useMediaQuery, useTheme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -10,15 +10,29 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     justifyContent: 'space-between'
   },
-  signup: {
+  login: {
     backgroundColor: 'white',
     color: theme.palette.primary.main,
-    marginLeft: theme.spacing(1)
+    [theme.breakpoints.up('sm')]: {
+      backgroundColor: 'transparent',
+      color: 'white'
+    }
+  },
+  signup: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'inline-block',
+      backgroundColor: 'white',
+      color: theme.palette.primary.main,
+      marginLeft: theme.spacing(1)
+    }
   }
 }));
 
 const Header = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const breakpoint = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <div>
@@ -32,7 +46,7 @@ const Header = () => {
           </div>
           <div>
             <Link href="/login">
-              <Button component="a" variant="outlined" color="inherit">Login</Button>
+              <Button component="a" variant={breakpoint ? "outlined" : "contained"} color="inherit" className={classes.login} disableElevation>Login</Button>
             </Link>
             <Link href="/signup">
               <Button component="a" variant="contained" className={classes.signup} disableElevation>Sign Up</Button>
