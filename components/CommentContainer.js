@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Divider, Avatar, Grid, Button } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import faker from 'faker';
@@ -24,9 +25,11 @@ const useStyles = makeStyles((theme) => ({
 const CommentContainer = () => {
   const classes = useStyles();
   const dateFormat = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const [formValue, setformValue] = useState('');
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    console.log(formValue);
   }
 
   return (
@@ -38,14 +41,20 @@ const CommentContainer = () => {
         </Grid>
         <Grid item xs zeroMinWidth>
           <form className="commentForm" onSubmit={handleFormSubmit}>
-            <textarea name="content" placeholder="Write your prediction here..." className={classes.commentInput} />
+            <textarea 
+              name="content" 
+              placeholder="Write your prediction here..."
+              className={classes.commentInput} 
+              value={formValue}
+              onChange={(e) => setformValue(e.target.value)}
+            />
             <Button type="submit" variant="contained" color="primary" className={classes.button}>Comment</Button>
           </form>
         </Grid>
       </Grid>
 
-      <div style={{marginTop: '50px'}}>
-        <h2 style={{marginBottom: '50px'}}>Predictions</h2>
+      <h2 style={{margin: '50px 0 30px'}}>Predictions</h2>
+      <div id="container">
         <Comment 
           author={faker.name.findName()} 
           avatar={faker.image.avatar()} 
