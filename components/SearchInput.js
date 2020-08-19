@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import SearchIcon from '@material-ui/icons/Search';
 import { InputBase } from '@material-ui/core';
@@ -16,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: '100%',
+    width: 0,
+    '&:focus-within': {
+      width: '100%'
+    },
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
       width: 'auto',
