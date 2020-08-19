@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import SearchInput from './SearchInput';
 import { AppBar, Toolbar, Typography, Button, useMediaQuery, useTheme } from '@material-ui/core';
@@ -33,21 +34,24 @@ const Header = () => {
   const classes = useStyles();
   const theme = useTheme();
   const breakpoint = useMediaQuery(theme.breakpoints.up('sm'));
+  const [showItems, setShowItems] = useState(true);
+
+  const handleUserInput = () => setShowItems(false);
 
   return (
     <div>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           <div>
-            <Typography variant="h6" className={classes.heading}>
+            { showItems ? <Typography variant="h6" className={classes.heading}>
               <Link href="/"><a>Stockbets</a></Link>
-            </Typography>
-            <SearchInput />
+            </Typography> : null }
+            <SearchInput handleUserClick={handleUserInput} />
           </div>
           <div>
-            <Link href="/login">
+            { showItems ? <Link href="/login">
               <Button component="a" variant={breakpoint ? "outlined" : "contained"} color="inherit" className={classes.login} disableElevation>Login</Button>
-            </Link>
+            </Link> : null }
             <Link href="/signup">
               <Button component="a" variant="contained" className={classes.signup} disableElevation>Sign Up</Button>
             </Link>

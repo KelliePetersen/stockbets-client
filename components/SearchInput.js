@@ -48,10 +48,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SearchInput = () => {
+const SearchInput = (props) => {
   const [value, setValue] = useState('');
   const router = useRouter();
   const classes = useStyles();
+  const { handleUserClick } = props;
+
+  const handleClick = event => {
+    console.log('clicked input');
+  }
 
   const handleKeyDown = (event) => {
     if (value && event.key === 'Enter') {
@@ -73,6 +78,7 @@ const SearchInput = () => {
         inputProps={{ 'aria-label': 'search' }}
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onClick={handleUserClick}
         onKeyDown={handleKeyDown}
       />
     </div>
