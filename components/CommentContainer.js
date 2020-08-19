@@ -1,4 +1,4 @@
-import { Divider, Avatar, Grid } from "@material-ui/core";
+import { Divider, Avatar, Grid, Button } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import faker from 'faker';
 import Comment from './Comment';
@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme) => ({
     padding: '20px',
     resize: 'vertical',
     fontFamily: 'Arial',
-    fontSize: '0.875rem'
+    fontSize: '0.875rem',
+    marginBottom: '10px'
+  },
+  button: {
+    borderRadius: '20px'
   }
 }));
 
@@ -35,7 +39,7 @@ const CommentContainer = () => {
         <Grid item xs zeroMinWidth>
           <form className="commentForm" onSubmit={handleFormSubmit}>
             <textarea name="content" placeholder="Write your prediction here..." className={classes.commentInput} />
-            <button type="submit" className="">Comment</button>
+            <Button type="submit" variant="contained" color="primary" className={classes.button}>Comment</Button>
           </form>
         </Grid>
       </Grid>
