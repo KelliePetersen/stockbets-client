@@ -52,7 +52,7 @@ const SearchInput = (props) => {
   const [value, setValue] = useState('');
   const router = useRouter();
   const classes = useStyles();
-  const { handleUserClick } = props;
+  const { handleUserFocus, handleUserLeaveFocus } = props;
 
   const handleClick = event => {
     console.log('clicked input');
@@ -78,7 +78,8 @@ const SearchInput = (props) => {
         inputProps={{ 'aria-label': 'search' }}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onClick={handleUserClick}
+        onFocus={handleUserFocus}
+        onBlur={handleUserLeaveFocus}
         onKeyDown={handleKeyDown}
       />
     </div>

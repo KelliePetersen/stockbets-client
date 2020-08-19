@@ -36,7 +36,8 @@ const Header = () => {
   const breakpoint = useMediaQuery(theme.breakpoints.up('sm'));
   const [showItems, setShowItems] = useState(true);
 
-  const handleUserInput = () => setShowItems(false);
+  const handleUserFocus = () => setShowItems(false);
+  const handleUserLeaveFocus = () => setShowItems(true);
 
   return (
     <div>
@@ -46,7 +47,7 @@ const Header = () => {
             { showItems ? <Typography variant="h6" className={classes.heading}>
               <Link href="/"><a>Stockbets</a></Link>
             </Typography> : null }
-            <SearchInput handleUserClick={handleUserInput} />
+            <SearchInput handleUserFocus={handleUserFocus} handleUserLeaveFocus={handleUserLeaveFocus} />
           </div>
           <div>
             { showItems ? <Link href="/login">
