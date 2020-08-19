@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import SearchIcon from '@material-ui/icons/Search';
-import { InputBase } from '@material-ui/core';
+import { InputBase, useMediaQuery, useTheme } from '@material-ui/core';
 import { makeStyles, fade } from '@material-ui/core/styles';
 
 
@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
       width: 'auto',
+      '&:focus-within': {
+        width: 'auto'
+      }
     },
   },
   searchIcon: {
@@ -55,10 +58,8 @@ const SearchInput = (props) => {
   const router = useRouter();
   const classes = useStyles();
   const { handleUserFocus, handleUserLeaveFocus } = props;
-
-  const handleClick = event => {
-    console.log('clicked input');
-  }
+  const theme = useTheme();
+  const breakpoint = useMediaQuery(theme.breakpoints.up('sm'));
 
   const handleKeyDown = (event) => {
     if (value && event.key === 'Enter') {
@@ -80,7 +81,7 @@ const SearchInput = (props) => {
         inputProps={{ 'aria-label': 'search' }}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onFocus={handleUserFocus}
+        onFocus={breakpoint ? null : handleUserFocus}
         onBlur={handleUserLeaveFocus}
         onKeyDown={handleKeyDown}
       />
