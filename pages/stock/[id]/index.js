@@ -28,7 +28,7 @@ const StockPage = ({stockData, priceData}) => {
   const items = [];
   const [data, setData] = useState([]);
 
-  let cache = stockData.open;
+  let cache = stockData.open || stockData.previousClose;
   priceData.map((stock) => {
     items.push({"time": stock.label, "price": stock.average ? stock.average.toFixed(2) : cache});
     cache = stock.average || cache;
