@@ -25,15 +25,15 @@ const CommentContainer = () => {
 
       <div style={{marginTop: '50px'}}>
         <h2 style={{marginBottom: '50px'}}>Predictions</h2>
-        <Comment author="Jane" timeAgo="Today at 7:00pm"/>
+        <Comment author="Jane" avatar={faker.image.avatar()} content={faker.lorem.paragraph()} timeAgo="Today at 7:00pm"/>
         <Divider style={{margin:'20px 0'}} />
-        <Comment author="David" timeAgo="Today at 3:00pm"/>
+        <Comment author="David" avatar={faker.image.avatar()} content={faker.lorem.paragraph()} timeAgo="Today at 3:00pm"/>
         <Divider style={{margin:'20px 0'}} />
-        <Comment author="Bob" timeAgo="Today at 2:00pm"/>
+        <Comment author="Bob" avatar={faker.image.avatar()} content={faker.lorem.paragraph()} timeAgo="Today at 2:00pm"/>
         <Divider style={{margin:'20px 0'}} />
-        <Comment author="Sarah" timeAgo="Today at 1:00pm"/>
+        <Comment author="Sarah" avatar={faker.image.avatar()} content={faker.lorem.paragraph()} timeAgo="Today at 1:00pm"/>
         <Divider style={{margin:'20px 0'}} />
-        <Comment author="Lynda" timeAgo="Today at 12:00pm"/>
+        <Comment author="Lynda" avatar={faker.image.avatar()} content={faker.lorem.paragraph()} timeAgo="Today at 12:00pm"/>
       </div>
     </div>
   )
