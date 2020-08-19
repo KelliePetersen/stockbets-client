@@ -5,17 +5,29 @@ import faker from 'faker';
 import Comment from './Comment';
 
 const useStyles = makeStyles((theme) => ({
+  avatar: {
+    height: '40px',
+    width: '40px',
+    [theme.breakpoints.up('sm')]: {
+      height: '80px',
+      width: '80px'
+    }
+  },
   commentInput: {
     width: '100%',
     height: '80px',
     border: 'none',
-    borderRadius: '20px',
+    borderRadius: '10px',
     boxShadow: '0 0 8px rgba(0,0,0,0.2)',
-    padding: '20px',
+    padding: '15px',
     resize: 'vertical',
     fontFamily: 'Arial',
     fontSize: '0.875rem',
-    marginBottom: '10px'
+    marginBottom: '10px',
+    [theme.breakpoints.up('sm')]: {
+      padding: '20px',
+      borderRadius: '20px',
+    }
   },
   button: {
     borderRadius: '20px'
@@ -37,7 +49,7 @@ const CommentContainer = () => {
        
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
-          <Avatar alt={`avatar of ${faker.name.findName()}`} src={faker.image.avatar()} style={{height: '80px', width: '80px'}} />
+          <Avatar alt={`avatar of ${faker.name.findName()}`} src={faker.image.avatar()} className={classes.avatar} />
         </Grid>
         <Grid item xs zeroMinWidth>
           <form className="commentForm" onSubmit={handleFormSubmit}>
