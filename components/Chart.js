@@ -64,6 +64,7 @@ const Chart = ({ data }) => {
   });
 
   useEffect(() => {
+    const wrapper = select(wrapperRef.current);
     const svg = select(svgRef.current);
     const vertical = select(verticalRef.current);
     const tooltip = select(tooltipRef.current);
@@ -114,6 +115,20 @@ const Chart = ({ data }) => {
       .on("mouseleave", function() {
         vertical.style("opacity", "0" );
       })
+      .on("dblclick", () => {
+        wrapper
+          .append("div")
+          .attr("class", "prediction")
+          .style("position", "absolute")
+          .style("top", "10px")
+          .style("left", mousex + "px")
+          .style("transform", "translateX(-5px)")
+          .style("z-index", "5")
+          .style("width", "10px")
+          .style("height", "10px")
+          .style("border-radius", "50%")
+          .style("background", "red");
+      });
 
     vertical
       .style("position", "absolute")
