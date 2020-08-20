@@ -36,6 +36,15 @@ const StockPage = ({stockData, priceData}) => {
     cache = stock.average || cache;
   });
 
+  function numFormatter(num) {
+    if (Math.abs(num) > 999999999) {
+      return Math.sign(num)*((Math.abs(num)/1000000000).toFixed(2)) + 'B' 
+    } else if (Math.abs(num) > 999999) {
+      return Math.sign(num)*((Math.abs(num)/1000000).toFixed(2)) + 'M' 
+    }
+    return Math.sign(num)*Math.abs(num)
+  }
+
   return (
     <div>
       <Head>
@@ -52,32 +61,32 @@ const StockPage = ({stockData, priceData}) => {
               <Chart data={items} />
             </div>
             <Grid container wrap="nowrap" spacing={2}>
-              <p style={{color: '#000'}}>Previous close 
-                <span style={{color: '#666'}}> {stockData.previousClose || stockData.iexClose || `-`}</span>
+              <p style={{color: '#000'}}>Prev Close 
+                <span style={{color: '#666', display: 'block'}}> {stockData.previousClose || stockData.iexClose || `-`}</span>
               </p>
               <p style={{color: '#000'}}>Open 
-                <span style={{color: '#666'}}> {stockData.open || stockData.iexOpen || '---'}</span>
+                <span style={{color: '#666', display: 'block'}}> {stockData.open || stockData.iexOpen || '---'}</span>
               </p>
               <p style={{color: '#000'}}>Low 
-                <span style={{color: '#666'}}> {stockData.low || '---'}</span>
+                <span style={{color: '#666', display: 'block'}}> {stockData.low || '---'}</span>
               </p>
               <p style={{color: '#000'}}>High 
-                <span style={{color: '#666'}}> {stockData.high || '---'}</span>
+                <span style={{color: '#666', display: 'block'}}> {stockData.high || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>52 wk Low 
-                <span style={{color: '#666'}}> {stockData.week52Low || '---'}</span>
+              <p style={{color: '#000'}}>52wk Low 
+                <span style={{color: '#666', display: 'block'}}> {stockData.week52Low || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>52 wk High 
-                <span style={{color: '#666'}}> {stockData.week52High || '---'}</span>
+              <p style={{color: '#000'}}>52wk High 
+                <span style={{color: '#666', display: 'block'}}> {stockData.week52High || '---'}</span>
               </p>
               <p style={{color: '#000'}}>PE Ratio 
-                <span style={{color: '#666'}}> {stockData.peRatio || '---'}</span>
+                <span style={{color: '#666', display: 'block'}}> {stockData.peRatio || '---'}</span>
               </p>
               <p style={{color: '#000'}}>Market Cap 
-                <span style={{color: '#666'}}> {stockData.marketCap || '---'}</span>
+                <span style={{color: '#666', display: 'block'}}> {numFormatter(stockData.marketCap) || '---'}</span>
               </p>
               <p style={{color: '#000'}}>Volume 
-                <span style={{color: '#666'}}> {stockData.volume || stockData.iexVolume || '---'}</span>
+                <span style={{color: '#666', display: 'block'}}> {stockData.volume || stockData.iexVolume || '---'}</span>
               </p>
             </Grid>
             <CommentContainer />
