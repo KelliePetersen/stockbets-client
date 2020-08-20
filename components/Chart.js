@@ -19,14 +19,35 @@ const useStyles = makeStyles((theme) => ({
   },
   tooltip: {
     position: 'absolute',
+    top: '0px',
+    width: 'max-content',
+    padding: '7.5px 10px',
+    fontSize: '0.875rem',
+    background: 'white',
+    boxShadow: '0 0 5px rgba(0,0,0,0.2)',
+    borderRadius: '8px',
     textAlign: 'center',
-    width: '60px',
-    height: '28px',
-    padding: '2px',
-    font: '12px sans-serif',
-    background: 'lightsteelblue',
-    border: '0px',
-    borderRadius: '8px'
+    opacity: '0'
+  },
+  vertical: {
+    position: "absolute",
+    zIndex: "-1",
+    width: "1px",
+    height: "calc(100% - 20px)",
+    top: "0px",
+    left: "0px",
+    background: "#bbb",
+    opacity: "0"
+  },
+  price: {
+    margin: '0 10px 0 0',
+    display: 'inline',
+    fontWeight: '700'
+  },
+  time: {
+    margin: 0,
+    display: 'inline',
+    color: '#666'
   }
 }));
 
@@ -87,6 +108,7 @@ const Chart = ({ data }) => {
       .y(yScale);
 
     const bisect = d3.bisector(function(d) { return d.x; }).left;
+
     const focusCircle = svg
       .append('g')
       .append('circle')
@@ -94,12 +116,7 @@ const Chart = ({ data }) => {
         .attr("stroke", "none")
         .attr('r', 5)
         .style("opacity", 0)
-    const focusText = svg
-      .append('g')
-      .append('text')
-        .style("opacity", 0)
-        .attr("text-anchor", "left")
-        .attr("alignment-baseline", "middle")
+
     svg
       .append('rect')
       .style("fill", "none")
@@ -112,7 +129,7 @@ const Chart = ({ data }) => {
 
     function mouseover() {
       focusCircle.style("opacity", 1)
-      focusText.style("opacity", 1)
+      tooltip.style("opacity", 1)
       vertical.style("opacity", 1)
     }
     
@@ -123,16 +140,21 @@ const Chart = ({ data }) => {
       focusCircle
         .attr("cx", xScale(Math.round(x0)))
         .attr("cy", yScale(selectedData.price))
-      focusText
-        .html(selectedData.price + " " + selectedData.time)
-        .attr("x", xScale(Math.round(x0)) + 15)
-        .attr("y", yScale(selectedData.price))
+      tooltip
+        .style("transform", "translateX(" + xScale(Math.round(x0)) + "px)")
+        .style("left", "-" + tooltip._groups[0][0].clientWidth / 2 + "px")
+      tooltip
+      .selectAll(".price")
+      .text(selectedData.price)
+      tooltip
+        .selectAll(".time")
+        .text(selectedData.time)
       vertical
         .style("transform", "translateX(" + xScale(Math.round(x0)) + "px)");
       }
     function mouseout() {
       focusCircle.style("opacity", 0)
-      focusText.style("opacity", 0)
+      tooltip.style("opacity", 0)
       vertical.style("opacity", 0)
     }
 
@@ -160,20 +182,6 @@ const Chart = ({ data }) => {
           .style("border-radius", "50%")
           .style("background", "red");
       });
-
-    vertical
-      .style("position", "absolute")
-      .style("z-index", "-1")
-      .style("width", "1px")
-      .style("height", "calc(100% - 20px)")
-      .style("top", "0px")
-      .style("left", "0px")
-      .style("background", "#bbb")
-      .style("opacity", "0");
-
-    tooltip
-      .style("opacity", "0");
-
   }, [data, dimensions]);
 
   return (
@@ -183,7 +191,10 @@ const Chart = ({ data }) => {
         <g className="y-axis" />
       </svg>
       <div ref={verticalRef} className={classes.vertical} />
-      <div ref={tooltipRef} className={classes.tooltip} />
+      <div ref={tooltipRef} className={classes.tooltip}>
+        <p className={`${classes.price} price`}></p>
+        <p className={`${classes.time} time`}></p>
+      </div>
     </div>
   )
 }
