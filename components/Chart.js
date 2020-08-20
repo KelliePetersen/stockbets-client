@@ -86,9 +86,6 @@ const Chart = ({ data }) => {
       .x((value, index) => xScale(index))
       .y(yScale);
 
-
-    /* EVERYTHING HERE IS CHANGED */
-
     const bisect = d3.bisector(function(d) { return d.x; }).left;
     const focus = svg
       .append('g')
@@ -115,7 +112,8 @@ const Chart = ({ data }) => {
 
     function mouseover() {
       focus.style("opacity", 1)
-      focusText.style("opacity",1)
+      focusText.style("opacity", 1)
+      vertical.style("opacity", 1)
     }
     
     function mousemove() {
@@ -129,13 +127,14 @@ const Chart = ({ data }) => {
         .html(selectedData.price + " " + selectedData.time)
         .attr("x", xScale(Math.round(x0)) + 15)
         .attr("y", yScale(selectedData.price))
+      vertical
+        .style("transform", "translateX(" + xScale(Math.round(x0)) + "px)");
       }
     function mouseout() {
       focus.style("opacity", 0)
       focusText.style("opacity", 0)
+      vertical.style("opacity", 0)
     }
-
-    /* END CHANGES */
 
     svg
       .selectAll('.line')
@@ -147,25 +146,6 @@ const Chart = ({ data }) => {
       .attr('stroke', 'blue');
 
     svg
-      .on("mousemove", function(){    
-        mousex = d3.mouse(this);
-        mousex = mousex[0] + 0;
-        if (mousex < 780) {
-          vertical.style("transform", "translateX(" + mousex + "px)");
-          vertical.style("opacity", "1" );
-        }
-      })
-      .on("mouseover", function(){  
-        mousex = d3.mouse(this);
-        mousex = mousex[0] + 0;
-        if (mousex < 780) {
-          vertical.style("transform", "translateX(" + mousex + "px)");
-          vertical.style("opacity", "1" );
-        }
-      })
-      .on("mouseleave", function() {
-        vertical.style("opacity", "0" );
-      })
       .on("dblclick", () => {
         wrapper
           .append("div")
