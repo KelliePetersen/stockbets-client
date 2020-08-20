@@ -185,15 +185,15 @@ const Chart = ({ data }) => {
 
       const make_y_gridlines = () => d3.axisRight(yScale).ticks(4);
 
-      svg.append("g")
-      .attr("class","grid")
-      .style("opacity", "0.15")
-      .style("z-index", "-1")
-  		.style("stroke-dasharray",("3"))
-  		.call(make_y_gridlines()
-        .tickSize(800)
-        .tickFormat("")
-      );
+      svg
+        .selectAll('.grid')
+        .style("opacity", "0.15")
+        .style("z-index", "-1")
+        .style("stroke-dasharray",("3"))
+        .call(make_y_gridlines()
+          .tickSize(800)
+          .tickFormat("")
+        );
 
 
   }, [data, dimensions]);
@@ -203,6 +203,7 @@ const Chart = ({ data }) => {
       <svg ref={svgRef} className={classes.svg}>
         <g className="x-axis" />
         <g className="y-axis" />
+        <g className="grid" />
       </svg>
       <div ref={verticalRef} className={classes.vertical} />
       <div ref={tooltipRef} className={classes.tooltip}>
