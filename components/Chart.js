@@ -87,12 +87,12 @@ const Chart = ({ data }) => {
       .y(yScale);
 
     const bisect = d3.bisector(function(d) { return d.x; }).left;
-    const focus = svg
+    const focusCircle = svg
       .append('g')
       .append('circle')
-        .style("fill", "none")
-        .attr("stroke", "black")
-        .attr('r', 8.5)
+        .style("fill", "blue")
+        .attr("stroke", "none")
+        .attr('r', 5)
         .style("opacity", 0)
     const focusText = svg
       .append('g')
@@ -111,7 +111,7 @@ const Chart = ({ data }) => {
       .on('mouseout', mouseout);
 
     function mouseover() {
-      focus.style("opacity", 1)
+      focusCircle.style("opacity", 1)
       focusText.style("opacity", 1)
       vertical.style("opacity", 1)
     }
@@ -120,7 +120,7 @@ const Chart = ({ data }) => {
       var x0 = xScale.invert(d3.mouse(this)[0]);
       var i = bisect(data, x0, Math.round(x0) * 5);
       let selectedData = data[i];
-      focus
+      focusCircle
         .attr("cx", xScale(Math.round(x0)))
         .attr("cy", yScale(selectedData.price))
       focusText
@@ -131,7 +131,7 @@ const Chart = ({ data }) => {
         .style("transform", "translateX(" + xScale(Math.round(x0)) + "px)");
       }
     function mouseout() {
-      focus.style("opacity", 0)
+      focusCircle.style("opacity", 0)
       focusText.style("opacity", 0)
       vertical.style("opacity", 0)
     }
