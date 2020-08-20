@@ -67,6 +67,7 @@ const Chart = ({ data }) => {
     const svg = select(svgRef.current);
     const vertical = select(verticalRef.current);
     const tooltip = select(tooltipRef.current);
+    let mousex;
 
     if (!dimensions) return;
 
@@ -84,8 +85,6 @@ const Chart = ({ data }) => {
       .x((value, index) => xScale(index))
       .y(yScale);
 
-
-    let mousex;
     svg
       .selectAll('.line')
       .data([prices])
@@ -96,17 +95,21 @@ const Chart = ({ data }) => {
       .attr('stroke', 'blue');
 
     svg
-      .on("mousemove", function(){  
+      .on("mousemove", function(){    
         mousex = d3.mouse(this);
-        mousex = mousex[0] + 1;
-        vertical.style("left", mousex + "px" );
-        vertical.style("opacity", "1" )
+        mousex = mousex[0] + 0;
+        if (mousex < 780) {
+          vertical.style("transform", "translateX(" + mousex + "px)");
+          vertical.style("opacity", "1" );
+        }
       })
       .on("mouseover", function(){  
         mousex = d3.mouse(this);
-        mousex = mousex[0] + 1;
-        vertical.style("left", mousex + "px");
-        vertical.style("opacity", "1" );
+        mousex = mousex[0] + 0;
+        if (mousex < 780) {
+          vertical.style("transform", "translateX(" + mousex + "px)");
+          vertical.style("opacity", "1" );
+        }
       })
       .on("mouseout", function() {
         vertical.style("opacity", "1" );
