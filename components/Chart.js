@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { select, line, axisBottom, axisRight, scaleLinear } from 'd3';
 import { makeStyles } from '@material-ui/core/styles';
 import ResizeObserver from 'resize-observer-polyfill';
+import * as d3 from "d3";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -50,6 +51,7 @@ const Chart = ({ data }) => {
   const classes = useStyles();
   const wrapperRef = useRef();
   const svgRef = useRef();
+  const verticalRef = useRef();
   const tooltipRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
   const prices = [];
@@ -63,6 +65,7 @@ const Chart = ({ data }) => {
 
   useEffect(() => {
     const svg = select(svgRef.current);
+    const vertical = select(verticalRef.current);
     const tooltip = select(tooltipRef.current);
 
     if (!dimensions) return;
@@ -81,6 +84,8 @@ const Chart = ({ data }) => {
       .x((value, index) => xScale(index))
       .y(yScale);
 
+
+    let mousex;
     svg
       .selectAll('.line')
       .data([prices])
@@ -89,6 +94,33 @@ const Chart = ({ data }) => {
       .attr('d', myLine)
       .attr('fill', 'none')
       .attr('stroke', 'blue');
+
+    svg
+      .on("mousemove", function(){  
+        mousex = d3.mouse(this);
+        mousex = mousex[0] + 1;
+        vertical.style("left", mousex + "px" );
+        vertical.style("opacity", "1" )
+      })
+      .on("mouseover", function(){  
+        mousex = d3.mouse(this);
+        mousex = mousex[0] + 1;
+        vertical.style("left", mousex + "px");
+        vertical.style("opacity", "1" );
+      })
+      .on("mouseout", function() {
+        vertical.style("opacity", "1" );
+      })
+
+    vertical
+      .style("position", "absolute")
+      .style("z-index", "5")
+      .style("width", "1px")
+      .style("height", "calc(100% - 20px)")
+      .style("top", "0px")
+      .style("left", "0px")
+      .style("background", "#bbb")
+      .style("opacity", "1");
 
     tooltip
       .style("opacity", 0);
@@ -101,6 +133,7 @@ const Chart = ({ data }) => {
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
+      <div ref={verticalRef} className={classes.vertical} />
       <div ref={tooltipRef} className={classes.tooltip} />
     </div>
   )
