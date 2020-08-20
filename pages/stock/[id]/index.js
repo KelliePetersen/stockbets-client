@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
+import Error from "../../_error";
 import Layout from "../../../components/Layout";
 import Chart from "../../../components/Chart";
 import CommentContainer from "../../../components/CommentContainer";
