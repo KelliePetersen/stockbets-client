@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
   chart: {
     height: '90vw',
     maxHeight: '400px',
-    margin: '20px 0'
+    margin: '30px 0 20px'
   },
   heading: {
     wordSpacing: '5px',
-    marginTop: '10px'
+    margin: '10px 0 0'
   }
 }));
 
@@ -45,11 +45,40 @@ const StockPage = ({stockData, priceData}) => {
         <main style={{padding: '100px 0'}}>
           <div className={classes.wrapper}>
             <p>{stockData.companyName}</p>
-            <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice}</h1> 
+            <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice} {(stockData.change).toFixed(2)} ({(stockData.changePercent * 100).toFixed(2)})% </h1>
+            <p style={{color: '#666'}}>Last updated {stockData.latestTime}</p>
             <div className={classes.chart}>
               <Chart data={items} />
             </div>
-            {/* TODO Fetch comment data linked to stock in database */}
+            <div>
+              <p style={{color: '#000'}}>Previous close: 
+                <span style={{color: '#666'}}> {stockData.previousClose || stockData.iexClose}</span>
+              </p>
+              <p style={{color: '#000'}}>Open: 
+                <span style={{color: '#666'}}> {stockData.open || stockData.iexOpen}</span>
+              </p>
+              <p style={{color: '#000'}}>Low: 
+                <span style={{color: '#666'}}> {stockData.low}</span>
+              </p>
+              <p style={{color: '#000'}}>High: 
+                <span style={{color: '#666'}}> {stockData.high}</span>
+              </p>
+              <p style={{color: '#000'}}>52 wk Low: 
+                <span style={{color: '#666'}}> {stockData.week52Low}</span>
+              </p>
+              <p style={{color: '#000'}}>52 wk High: 
+                <span style={{color: '#666'}}> {stockData.week52High}</span>
+              </p>
+              <p style={{color: '#000'}}>PE Ratio: 
+                <span style={{color: '#666'}}> {stockData.peRatio}</span>
+              </p>
+              <p style={{color: '#000'}}>Market Cap: 
+                <span style={{color: '#666'}}> {stockData.marketCap}</span>
+              </p>
+              <p style={{color: '#000'}}>Volume: 
+                <span style={{color: '#666'}}> {stockData.volume || stockData.iexVolume}</span>
+              </p>
+            </div>
             <CommentContainer />
           </div>
         </main>
