@@ -124,7 +124,8 @@ const Chart = ({ data }) => {
       .attr('height', "100%")
       .on('mouseover', mouseover)
       .on('mousemove', mousemove)
-      .on('mouseout', mouseout);
+      .on('mouseout', mouseout)
+      .on('dblclick', dblclick);
 
     function mouseover() {
       focusCircle.style("opacity", 1)
@@ -133,8 +134,8 @@ const Chart = ({ data }) => {
     }
     
     function mousemove() {
-      var x0 = xScale.invert(d3.mouse(this)[0]);
-      var i = bisect(data, x0, Math.round(x0) * 5);
+      let x0 = xScale.invert(d3.mouse(this)[0]);
+      let i = bisect(data, x0, Math.round(x0) * 5);
       let selectedData = data[i];
       focusCircle
         .attr("cx", xScale(Math.round(x0)))
@@ -150,11 +151,28 @@ const Chart = ({ data }) => {
         .text(selectedData.time)
       vertical
         .style("transform", "translateX(" + xScale(Math.round(x0)) + "px)");
-      }
+    }
+
     function mouseout() {
       focusCircle.style("opacity", 0)
       tooltip.style("opacity", 0)
       vertical.style("opacity", 0)
+    }
+
+    function dblclick() {
+      let x0 = xScale.invert(d3.mouse(this)[0]);
+      let i = bisect(data, x0, Math.round(x0) * 5);
+      let selectedData = data[i];
+      svg
+        .append('g')
+        .append('circle')
+          .style("fill", "red")
+          .attr("stroke", "none")
+          .attr('r', 5)
+          .style("z-index", "5")
+          .attr("class", "prediction")
+          .attr("cx", xScale(Math.round(x0)))
+          .attr("cy", yScale(selectedData.price));
     }
 
     svg
@@ -165,23 +183,6 @@ const Chart = ({ data }) => {
       .attr('d', myLine)
       .attr('fill', 'none')
       .attr('stroke', 'blue');
-
-    svg
-      .on("dblclick", () => {
-        wrapper
-          .append("div")
-          .attr("class", "prediction")
-          .style("position", "absolute")
-          .style("top", "10px")
-          .style("left", mousex + "px")
-          .style("transform", "translateX(-5px)")
-          .style("z-index", "5")
-          .style("width", "10px")
-          .style("height", "10px")
-          .style("border-radius", "50%")
-          .style("background", "red");
-      });
-
 
       const make_y_gridlines = () => d3.axisRight(yScale).ticks(4);
 
