@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Grid } from "@material-ui/core";
+import { Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Error from "../../_error";
 import Layout from "../../../components/Layout";
@@ -37,6 +37,8 @@ const StockPage = ({stockData, priceData}) => {
   const classes = useStyles();
   const items = [];
   const [data, setData] = useState([]);
+  const theme = useTheme();
+  const breakpoint = useMediaQuery(theme.breakpoints.up('md'));
 
   let cache = stockData.open || stockData.previousClose;
   priceData.map((stock) => {
@@ -70,8 +72,8 @@ const StockPage = ({stockData, priceData}) => {
             <div className={classes.chart}>
               <Chart data={items} />
             </div>
-            <Grid container direction="row" spacing={4} style={{marginTop: '20px'}}>
-              <InfoItem title='Prev Close' data={stockData.previousClose || stockData.iexClose || `-`} />
+            <Grid container direction="row" spacing={4} style={{marginTop: '20px', width: '100%', minWidth: '320px'}}  justify={breakpoint && 'space-between'}>
+              <InfoItem title='Prev Close' data={stockData.previousClose || stockData.iexClose || '---'} />
               <InfoItem title='Open' data={stockData.open || stockData.iexOpen || '---'} />
               <InfoItem title='Low' data={stockData.low || '---'} />
               <InfoItem title='High' data={stockData.high || '---'} />
