@@ -36,11 +36,13 @@ const StockPage = ({stockData, priceData}) => {
     cache = stock.average || cache;
   });
 
-  function numFormatter(num) {
+  const numFormatter = num => {
     if (Math.abs(num) > 999999999) {
       return Math.sign(num)*((Math.abs(num)/1000000000).toFixed(2)) + 'B' 
     } else if (Math.abs(num) > 999999) {
       return Math.sign(num)*((Math.abs(num)/1000000).toFixed(2)) + 'M' 
+    } else if (Math.abs(num) > 999) {
+      return Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' 
     }
     return Math.sign(num)*Math.abs(num)
   }
@@ -86,7 +88,7 @@ const StockPage = ({stockData, priceData}) => {
                 <span style={{color: '#666', display: 'block'}}> {numFormatter(stockData.marketCap) || '---'}</span>
               </p>
               <p style={{color: '#000'}}>Volume 
-                <span style={{color: '#666', display: 'block'}}> {stockData.volume || stockData.iexVolume || '---'}</span>
+                <span style={{color: '#666', display: 'block'}}> {numFormatter(stockData.volume) || numFormatter(stockData.iexVolume) || '---'}</span>
               </p>
             </Grid>
             <CommentContainer />
