@@ -181,6 +181,21 @@ const Chart = ({ data }) => {
           .style("border-radius", "50%")
           .style("background", "red");
       });
+
+
+      const make_y_gridlines = () => d3.axisRight(yScale).ticks(4);
+
+      svg.append("g")
+      .attr("class","grid")
+      .style("opacity", "0.15")
+      .style("z-index", "-1")
+  		.style("stroke-dasharray",("3"))
+  		.call(make_y_gridlines()
+        .tickSize(800)
+        .tickFormat("")
+      );
+
+
   }, [data, dimensions]);
 
   return (
