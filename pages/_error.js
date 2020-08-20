@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/Layout';
+import SearchInput from '../components/SearchInput';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CustomError = ({ statusCode }) => {
-  const { id } = useRouter();
+  const router = useRouter();
   const classes = useStyles();
   const stockPage = null;
 
@@ -62,18 +63,19 @@ const CustomError = ({ statusCode }) => {
       </Head>
       <main className={classes.main}>
         <h1 className={classes.heading}>
-          {statusCode} | Page not found
+          {statusCode} Page not found
         </h1>
         { stockPage ? null : <p className={classes.text}>
           We could not find the page you're looking for.
         </p> }
         { stockPage ? <p className={classes.text}>
-          We could not find a stock with the symbol <strong>{id}</strong>. <br /> 
+          We could not find a stock with the symbol <strong>{(router.asPath).substring(1)}</strong>. <br /> 
           Please check that you're searching by Stock Symbol and not company name.
         </p> : null }
         <Link href="/">
           <Button component="a" variant="contained" color="primary" size="large" className={classes.signup}>Go back Home</Button>
         </Link>
+        <SearchInput />
       </main>
     </Layout>
   )
