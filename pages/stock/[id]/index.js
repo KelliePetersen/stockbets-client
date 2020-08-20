@@ -25,6 +25,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const InfoItem = ({title, data}) => (
+  <Grid container item xs={12} spacing={3}>
+    <p style={{color: '#000'}}>{title}
+      <span style={{color: '#666', display: 'block'}}> {data}</span>
+    </p>
+  </Grid>
+);
+
 const StockPage = ({stockData, priceData}) => {
   const classes = useStyles();
   const items = [];
@@ -63,33 +71,15 @@ const StockPage = ({stockData, priceData}) => {
               <Chart data={items} />
             </div>
             <Grid container wrap="nowrap" spacing={2}>
-              <p style={{color: '#000'}}>Prev Close 
-                <span style={{color: '#666', display: 'block'}}> {stockData.previousClose || stockData.iexClose || `-`}</span>
-              </p>
-              <p style={{color: '#000'}}>Open 
-                <span style={{color: '#666', display: 'block'}}> {stockData.open || stockData.iexOpen || '---'}</span>
-              </p>
-              <p style={{color: '#000'}}>Low 
-                <span style={{color: '#666', display: 'block'}}> {stockData.low || '---'}</span>
-              </p>
-              <p style={{color: '#000'}}>High 
-                <span style={{color: '#666', display: 'block'}}> {stockData.high || '---'}</span>
-              </p>
-              <p style={{color: '#000'}}>52wk Low 
-                <span style={{color: '#666', display: 'block'}}> {stockData.week52Low || '---'}</span>
-              </p>
-              <p style={{color: '#000'}}>52wk High 
-                <span style={{color: '#666', display: 'block'}}> {stockData.week52High || '---'}</span>
-              </p>
-              <p style={{color: '#000'}}>PE Ratio 
-                <span style={{color: '#666', display: 'block'}}> {stockData.peRatio || '---'}</span>
-              </p>
-              <p style={{color: '#000'}}>Market Cap 
-                <span style={{color: '#666', display: 'block'}}> {numFormatter(stockData.marketCap) || '---'}</span>
-              </p>
-              <p style={{color: '#000'}}>Volume 
-                <span style={{color: '#666', display: 'block'}}> {numFormatter(stockData.volume) || numFormatter(stockData.iexVolume) || '---'}</span>
-              </p>
+              <InfoItem title='Prev Close' data={stockData.previousClose || stockData.iexClose || `-`} />
+              <InfoItem title='Open' data={stockData.open || stockData.iexOpen || '---'} />
+              <InfoItem title='Low' data={stockData.low || '---'} />
+              <InfoItem title='High' data={stockData.high || '---'} />
+              <InfoItem title='52wk Low' data={stockData.week52Low || '---'} />
+              <InfoItem title='52wk High' data={stockData.week52High || '---'} />
+              <InfoItem title='PE Ratio' data={stockData.peRatio || '---'} />
+              <InfoItem title='Market Cap' data={numFormatter(stockData.marketCap) || '---'} />
+              <InfoItem title='Volume' data={numFormatter(stockData.volume) || numFormatter(stockData.iexVolume) || '---'} />
             </Grid>
             <CommentContainer />
           </div>
