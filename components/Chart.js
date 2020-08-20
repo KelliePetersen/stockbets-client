@@ -120,14 +120,14 @@ const Chart = ({ data }) => {
     
     function mousemove() {
       var x0 = xScale.invert(d3.mouse(this)[0]);
-      var i = bisect(data, x0, Math.floor(x0) * 5);
+      var i = bisect(data, x0, Math.round(x0) * 5);
       let selectedData = data[i];
       focus
-        .attr("cx", xScale(x0))
+        .attr("cx", xScale(Math.round(x0)))
         .attr("cy", yScale(selectedData.price))
       focusText
         .html(selectedData.price + " " + selectedData.time)
-        .attr("x", xScale(x0) + 15)
+        .attr("x", xScale(Math.round(x0)) + 15)
         .attr("y", yScale(selectedData.price))
       }
     function mouseout() {
