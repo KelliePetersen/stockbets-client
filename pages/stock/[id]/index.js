@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InfoItem = ({title, data}) => (
-  <Grid container item xs={12} spacing={3}>
-    <p style={{color: '#000'}}>{title}
+  <Grid item xs={4} sm={3} md={1} style={{minWidth: 'max-content', paddingBottom: 0}}>
+    <p style={{color: '#000', margin: '0'}}>{title}
       <span style={{color: '#666', display: 'block'}}> {data}</span>
     </p>
   </Grid>
@@ -70,7 +70,7 @@ const StockPage = ({stockData, priceData}) => {
             <div className={classes.chart}>
               <Chart data={items} />
             </div>
-            <Grid container wrap="nowrap" spacing={2}>
+            <Grid container direction="row" spacing={4} style={{marginTop: '20px'}}>
               <InfoItem title='Prev Close' data={stockData.previousClose || stockData.iexClose || `-`} />
               <InfoItem title='Open' data={stockData.open || stockData.iexOpen || '---'} />
               <InfoItem title='Low' data={stockData.low || '---'} />
