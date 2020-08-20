@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { Grid } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Error from "../../_error";
 import Layout from "../../../components/Layout";
@@ -46,39 +47,39 @@ const StockPage = ({stockData, priceData}) => {
           <div className={classes.wrapper}>
             <p>{stockData.companyName}</p>
             <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice} {(stockData.change).toFixed(2)} ({(stockData.changePercent * 100).toFixed(2)})% </h1>
-            <p style={{color: '#666'}}>Last updated {stockData.latestTime}</p>
+            <p style={{color: '#666'}}>Updated {priceData[0].date} {stockData.latestTime}</p>
             <div className={classes.chart}>
               <Chart data={items} />
             </div>
-            <div>
-              <p style={{color: '#000'}}>Previous close: 
-                <span style={{color: '#666'}}> {stockData.previousClose || stockData.iexClose}</span>
+            <Grid container wrap="nowrap" spacing={2}>
+              <p style={{color: '#000'}}>Previous close 
+                <span style={{color: '#666'}}> {stockData.previousClose || stockData.iexClose || `-`}</span>
               </p>
-              <p style={{color: '#000'}}>Open: 
-                <span style={{color: '#666'}}> {stockData.open || stockData.iexOpen}</span>
+              <p style={{color: '#000'}}>Open 
+                <span style={{color: '#666'}}> {stockData.open || stockData.iexOpen || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>Low: 
-                <span style={{color: '#666'}}> {stockData.low}</span>
+              <p style={{color: '#000'}}>Low 
+                <span style={{color: '#666'}}> {stockData.low || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>High: 
-                <span style={{color: '#666'}}> {stockData.high}</span>
+              <p style={{color: '#000'}}>High 
+                <span style={{color: '#666'}}> {stockData.high || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>52 wk Low: 
-                <span style={{color: '#666'}}> {stockData.week52Low}</span>
+              <p style={{color: '#000'}}>52 wk Low 
+                <span style={{color: '#666'}}> {stockData.week52Low || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>52 wk High: 
-                <span style={{color: '#666'}}> {stockData.week52High}</span>
+              <p style={{color: '#000'}}>52 wk High 
+                <span style={{color: '#666'}}> {stockData.week52High || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>PE Ratio: 
-                <span style={{color: '#666'}}> {stockData.peRatio}</span>
+              <p style={{color: '#000'}}>PE Ratio 
+                <span style={{color: '#666'}}> {stockData.peRatio || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>Market Cap: 
-                <span style={{color: '#666'}}> {stockData.marketCap}</span>
+              <p style={{color: '#000'}}>Market Cap 
+                <span style={{color: '#666'}}> {stockData.marketCap || '---'}</span>
               </p>
-              <p style={{color: '#000'}}>Volume: 
-                <span style={{color: '#666'}}> {stockData.volume || stockData.iexVolume}</span>
+              <p style={{color: '#000'}}>Volume 
+                <span style={{color: '#666'}}> {stockData.volume || stockData.iexVolume || '---'}</span>
               </p>
-            </div>
+            </Grid>
             <CommentContainer />
           </div>
         </main>
