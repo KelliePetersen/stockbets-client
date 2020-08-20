@@ -86,6 +86,57 @@ const Chart = ({ data }) => {
       .x((value, index) => xScale(index))
       .y(yScale);
 
+
+    /* EVERYTHING HERE IS CHANGED */
+
+    const bisect = d3.bisector(function(d) { return d.x; }).left;
+    const focus = svg
+      .append('g')
+      .append('circle')
+        .style("fill", "none")
+        .attr("stroke", "black")
+        .attr('r', 8.5)
+        .style("opacity", 0)
+    const focusText = svg
+      .append('g')
+      .append('text')
+        .style("opacity", 0)
+        .attr("text-anchor", "left")
+        .attr("alignment-baseline", "middle")
+    svg
+      .append('rect')
+      .style("fill", "none")
+      .style("pointer-events", "all")
+      .attr('width', "100%")
+      .attr('height', "100%")
+      .on('mouseover', mouseover)
+      .on('mousemove', mousemove)
+      .on('mouseout', mouseout);
+
+    function mouseover() {
+      focus.style("opacity", 1)
+      focusText.style("opacity",1)
+    }
+    
+    function mousemove() {
+      var x0 = xScale.invert(d3.mouse(this)[0]);
+      var i = bisect(data, x0, Math.floor(x0) * 5);
+      let selectedData = data[i];
+      focus
+        .attr("cx", xScale(x0))
+        .attr("cy", yScale(selectedData.price))
+      focusText
+        .html(selectedData.price + " " + selectedData.time)
+        .attr("x", xScale(x0) + 15)
+        .attr("y", yScale(selectedData.price))
+      }
+    function mouseout() {
+      focus.style("opacity", 0)
+      focusText.style("opacity", 0)
+    }
+
+    /* END CHANGES */
+
     svg
       .selectAll('.line')
       .data([prices])
