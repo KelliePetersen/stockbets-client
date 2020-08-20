@@ -20,8 +20,14 @@ const useStyles = makeStyles((theme) => ({
     margin: '30px 0 20px'
   },
   heading: {
-    wordSpacing: '5px',
-    margin: '10px 0 0'
+    display: 'inline-block',
+    wordSpacing: '2px',
+    margin: '10px 15px 0 0'
+  },
+  change: {
+    display: 'inline-block', 
+    fontSize: '1.25rem',
+    margin: 0
   }
 }));
 
@@ -66,8 +72,9 @@ const StockPage = ({stockData, priceData}) => {
       <Layout>
         <main style={{padding: '100px 0'}}>
           <div className={classes.wrapper}>
-            <p>{stockData.companyName}</p>
-            <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice} {(stockData.change).toFixed(2)} ({(stockData.changePercent * 100).toFixed(2)})% </h1>
+            <p style={{margin: 0}} >{stockData.companyName}</p>
+            <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice}</h1>
+            <p className={classes.change} style={stockData.change > 0 ? {color: 'green'} : {color: 'red'}}>{(stockData.change).toFixed(2)} ({(stockData.changePercent * 100).toFixed(2)})%</p>
             <p style={{color: '#666'}}>Updated {priceData[0].date} {stockData.latestTime}</p>
             <div className={classes.chart}>
               <Chart data={items} />
