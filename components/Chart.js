@@ -111,22 +111,22 @@ const Chart = ({ data }) => {
           vertical.style("opacity", "1" );
         }
       })
-      .on("mouseout", function() {
-        vertical.style("opacity", "1" );
+      .on("mouseleave", function() {
+        vertical.style("opacity", "0" );
       })
 
     vertical
       .style("position", "absolute")
-      .style("z-index", "5")
+      .style("z-index", "-1")
       .style("width", "1px")
       .style("height", "calc(100% - 20px)")
       .style("top", "0px")
       .style("left", "0px")
       .style("background", "#bbb")
-      .style("opacity", "1");
+      .style("opacity", "0");
 
     tooltip
-      .style("opacity", 0);
+      .style("opacity", "0");
 
   }, [data, dimensions]);
 
