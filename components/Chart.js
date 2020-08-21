@@ -89,7 +89,7 @@ const Chart = ({ data }) => {
     const svg = select(svgRef.current);
     const vertical = select(verticalRef.current);
     const tooltip = select(tooltipRef.current);
-    let mousex;
+    const bisect = d3.bisector(function(d) { return d.x; }).left;
 
     if (!dimensions) return;
 
@@ -106,27 +106,36 @@ const Chart = ({ data }) => {
       .x((value, index) => xScale(index))
       .y(yScale);
 
-    const bisect = d3.bisector(function(d) { return d.x; }).left;
+
+    svg
+      .selectAll('.line')
+      .data([prices])
+      .join('path')
+      .attr('class', 'line')
+      .attr('d', myLine)
+      .attr('fill', 'none')
+      .attr('stroke', 'blue');
 
     const focusCircle = svg
-      .append('g')
-      .append('circle')
+      .selectAll('.focus-circle')
+        .style("opacity", 0)
+    
+    const focusCircleInner = svg
+      .selectAll('.focus-circle-inner')
         .style("fill", "blue")
         .attr("stroke", "none")
         .attr('r', 5)
-        .style("opacity", 0)
 
     svg
-      .append('rect')
-      .style("fill", "none")
-      .style("pointer-events", "all")
-      .attr('width', "100%")
-      .attr('height', "100%")
-      .style("z-index", "3")
-      .on('mouseover', mouseover)
-      .on('mousemove', mousemove)
-      .on('mouseout', mouseout)
-      .on('dblclick', dblclick);
+      .selectAll('.overlay')
+        .style("fill", "none")
+        .style("pointer-events", "all")
+        .attr('width', "100%")
+        .attr('height', "100%")
+        .on('mouseover', mouseover)
+        .on('mousemove', mousemove)
+        .on('mouseout', mouseout)
+        .on('dblclick', dblclick);
 
     function mouseover() {
       focusCircle.style("opacity", 1)
@@ -138,7 +147,7 @@ const Chart = ({ data }) => {
       let x0 = xScale.invert(d3.mouse(this)[0]);
       let i = bisect(data, x0, Math.round(x0) * 5);
       let selectedData = data[i];
-      focusCircle
+      focusCircleInner
         .attr("cx", xScale(Math.round(x0)))
         .attr("cy", yScale(selectedData.price))
       tooltip
@@ -170,20 +179,10 @@ const Chart = ({ data }) => {
           .style("fill", "red")
           .attr("stroke", "none")
           .attr('r', 5)
-          .style("z-index", "5")
           .attr("class", "prediction")
           .attr("cx", xScale(Math.round(x0)))
           .attr("cy", yScale(selectedData.price));
     }
-
-    svg
-      .selectAll('.line')
-      .data([prices])
-      .join('path')
-      .attr('class', 'line')
-      .attr('d', myLine)
-      .attr('fill', 'none')
-      .attr('stroke', 'blue');
 
       const make_y_gridlines = () => d3.axisRight(yScale).ticks(4);
 
@@ -206,6 +205,8 @@ const Chart = ({ data }) => {
         <g className="x-axis" />
         <g className="y-axis" />
         <g className="grid" />
+        <g className="focus-circle"><circle className="focus-circle-inner" /></g>
+        <rect className="overlay" />
       </svg>
       <div ref={verticalRef} className={classes.vertical} />
       <div ref={tooltipRef} className={classes.tooltip}>
