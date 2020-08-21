@@ -75,7 +75,7 @@ const StockPage = ({stockData, priceData}) => {
             <p style={{margin: 0}} >{stockData.companyName}</p>
             <h1 className={classes.heading}>{stockData.symbol} {stockData.latestPrice}</h1>
             <p className={classes.change} style={stockData.change > 0 ? {color: 'green'} : {color: 'red'}}>{(stockData.change).toFixed(2)} ({(stockData.changePercent * 100).toFixed(2)})%</p>
-            <p style={{color: '#666'}}>Updated {priceData[0].date} {stockData.latestTime}</p>
+            <p style={{color: '#666'}}>Updated {stockData.latestTime}</p>
             <div className={classes.chart}>
               <Chart data={items} />
             </div>
