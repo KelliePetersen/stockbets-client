@@ -39,7 +39,11 @@ const InfoItem = ({title, data}) => (
   </Grid>
 );
 
-const StockPage = ({stockData, priceData}) => {
+const StockPage = ({stockData, priceData, statusCode}) => {
+  if (statusCode === 404) {
+    return <Error statusCode={statusCode} />;
+  }
+
   const classes = useStyles();
   const items = [];
   const [data, setData] = useState([]);
@@ -100,10 +104,11 @@ const StockPage = ({stockData, priceData}) => {
 
 StockPage.getInitialProps = async ({query}) => {
   const [stockData, priceData] = await Promise.all([
-    fetch(`https://sandbox.iexapis.com/stable/stock/${query.id}/quote?token=Tpk_d6cb491dc2a54a79a74012c3d4564673`).then(r => r.json()),
-    fetch(`https://sandbox.iexapis.com/stable/stock/${query.id}/intraday-prices?token=Tpk_d6cb491dc2a54a79a74012c3d4564673`).then(r => r.json())
-  ]);
-  return { stockData, priceData };
+    fetch(`https://sandbox.iexapis.com/stable/stock/${query.id}/quote?token=Tpk_d6cb491dc2a54a79a74012c3d4564673`).then(r => r.json()).catch(err => console.log(err.message)),
+    fetch(`https://sandbox.iexapis.com/stable/stock/${query.id}/intraday-prices?token=Tpk_d6cb491dc2a54a79a74012c3d4564673`).then(r => r.json()).catch(err => console.log(err.message))
+  ])
+  .catch(err => console.log(err.message));
+  return { stockData: stockData || {}, priceData: priceData || {}, statusCode: stockData ? 200 : 404};
 }
 
 export default StockPage;
