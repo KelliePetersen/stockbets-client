@@ -122,6 +122,7 @@ const Chart = ({ data }) => {
       .style("pointer-events", "all")
       .attr('width', "100%")
       .attr('height', "100%")
+      .style("z-index", "3")
       .on('mouseover', mouseover)
       .on('mousemove', mousemove)
       .on('mouseout', mouseout)
