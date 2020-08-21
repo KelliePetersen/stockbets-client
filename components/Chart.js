@@ -85,7 +85,6 @@ const Chart = ({ data }) => {
   });
 
   useEffect(() => {
-    const wrapper = select(wrapperRef.current);
     const svg = select(svgRef.current);
     const vertical = select(verticalRef.current);
     const tooltip = select(tooltipRef.current);
@@ -105,7 +104,6 @@ const Chart = ({ data }) => {
     const myLine = line()
       .x((value, index) => xScale(index))
       .y(yScale);
-
 
     svg
       .selectAll('.line')
@@ -128,6 +126,9 @@ const Chart = ({ data }) => {
 
     svg
       .selectAll('.overlay')
+        .data('1')
+        .join('rect')
+        .attr('class', 'overlay')
         .style("fill", "none")
         .style("pointer-events", "all")
         .attr('width', "100%")
@@ -206,7 +207,6 @@ const Chart = ({ data }) => {
         <g className="y-axis" />
         <g className="grid" />
         <g className="focus-circle"><circle className="focus-circle-inner" /></g>
-        <rect className="overlay" />
       </svg>
       <div ref={verticalRef} className={classes.vertical} />
       <div ref={tooltipRef} className={classes.tooltip}>
