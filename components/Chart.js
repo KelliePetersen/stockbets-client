@@ -95,7 +95,7 @@ const Chart = ({ data }) => {
     const xScale = scaleLinear().domain([0, prices.length - 1]).range([0, dimensions.width]);
     const yScale = scaleLinear().domain([Math.min(...prices) * 0.99, Math.max(...prices) * 1.01]).range([dimensions.height, 0]);
 
-    const xAxis = axisBottom(xScale).ticks(times.length / 3).tickFormat(i => { if (i % 6 == 0) return times[i]});
+    const xAxis = axisBottom(xScale).ticks(dimensions.width > 600 ? times.length / 3 : times.length / 4).tickFormat(i => { if (i % 6 == 0) return times[i]});
     svg.select('.x-axis').style('transform', 'translateY(100%)').call(xAxis);
 
     const yAxis = axisRight(yScale);
@@ -193,7 +193,7 @@ const Chart = ({ data }) => {
         .style("z-index", "-1")
         .style("stroke-dasharray",("3"))
         .call(make_y_gridlines()
-          .tickSize(800)
+          .tickSize(dimensions.width)
           .tickFormat("")
         );
 
