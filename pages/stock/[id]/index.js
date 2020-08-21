@@ -57,7 +57,9 @@ const StockPage = ({stockData, priceData, statusCode}) => {
   });
 
   const numFormatter = num => {
-    if (Math.abs(num) > 999999999) {
+    if (Math.abs(num) > 999999999999) {
+      return Math.sign(num)*((Math.abs(num)/1000000000000).toFixed(2)) + 'T' 
+    } else if (Math.abs(num) > 999999999) {
       return Math.sign(num)*((Math.abs(num)/1000000000).toFixed(2)) + 'B' 
     } else if (Math.abs(num) > 999999) {
       return Math.sign(num)*((Math.abs(num)/1000000).toFixed(2)) + 'M' 
