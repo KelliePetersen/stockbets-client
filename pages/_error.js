@@ -53,7 +53,11 @@ const useStyles = makeStyles((theme) => ({
 const CustomError = ({ statusCode }) => {
   const router = useRouter();
   const classes = useStyles();
-  const stockPage = null;
+  let stockPage = null;
+
+  if (router.asPath.includes('stock')) {
+    stockPage = true;
+  }
 
   return (
     <Layout>
@@ -69,7 +73,7 @@ const CustomError = ({ statusCode }) => {
           We could not find the page you're looking for.
         </p> }
         { stockPage ? <p className={classes.text}>
-          We could not find a stock with the symbol <strong>{(router.asPath).substring(1)}</strong>. <br /> 
+          We could not find a stock with the symbol <strong>{(router.asPath).substring(7)}</strong>. <br /> 
           Please check that you're searching by Stock Symbol and not company name.
         </p> : null }
         <Link href="/">
