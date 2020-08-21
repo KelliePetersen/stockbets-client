@@ -85,11 +85,11 @@ const StockPage = ({stockData, priceData, statusCode}) => {
             <div className={classes.chart}>
               <Chart data={items} />
             </div>
-            <Grid container direction="row" spacing={4} style={{marginTop: '20px', width: '100%', minWidth: '320px'}}  justify={breakpoint && 'space-between'}>
+            <Grid container direction="row" spacing={3} style={{marginTop: '20px', width: '100%', minWidth: '320px'}}  justify={breakpoint && 'space-between'}>
               <InfoItem title='Prev Close' data={stockData.previousClose || stockData.iexClose || '---'} />
               <InfoItem title='Open' data={stockData.open || stockData.iexOpen || '---'} />
-              <InfoItem title='Low' data={stockData.low || '---'} />
-              <InfoItem title='High' data={stockData.high || '---'} />
+              <InfoItem title='Low' data={stockData.low.toFixed(2) || '---'} />
+              <InfoItem title='High' data={stockData.high.toFixed(2) || '---'} />
               <InfoItem title='52wk Low' data={stockData.week52Low || '---'} />
               <InfoItem title='52wk High' data={stockData.week52High || '---'} />
               <InfoItem title='PE Ratio' data={stockData.peRatio || '---'} />
